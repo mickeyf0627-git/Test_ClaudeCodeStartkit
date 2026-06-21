@@ -1,0 +1,63 @@
+{
+  "forceLoginMethod": "claudeai",
+  "forceLoginOrgUUID": "REPLACE-WITH-AILLIO-ORG-UUID",
+  "requiredMinimumVersion": "2.1.139",
+  "allowManagedPermissionRulesOnly": false,
+  "disableAutoMode": "disable",
+  "forceRemoteSettingsRefresh": true,
+  "allowManagedMcpServersOnly": true,
+  "allowedMcpServers": [
+    { "serverName": "github" }
+  ],
+  "permissions": {
+    "deny": [
+      "Read(./.env)", "Read(./.env.*)", "Read(**/.env)", "Read(**/.env.*)",
+      "Read(./secrets/**)", "Read(**/secrets/**)", "Read(**/credentials*)",
+      "Read(**/*.pem)", "Read(**/*.key)", "Read(**/id_rsa*)",
+      "Read(~/.ssh/**)", "Read(~/.aws/**)", "Read(~/.config/gcloud/**)",
+      "Write(**/.env)", "Write(**/.env.*)", "Write(**/secrets/**)", "Write(**/credentials*)",
+      "Edit(**/.env)", "Edit(**/.env.*)", "Edit(**/secrets/**)", "Edit(**/credentials*)",
+      "Bash(sudo:*)", "Bash(rm -rf /:*)", "Bash(rm -rf ~:*)", "Bash(mkfs:*)", "Bash(dd:*)"
+    ],
+    "ask": [
+      "Bash(curl *)", "Bash(wget *)",
+      "Bash(rm -rf:*)", "Bash(git push --force:*)",
+      "Bash(git reset --hard:*)", "Bash(git clean -fd:*)"
+    ],
+    "allow": [
+      "Bash(git status)", "Bash(git diff *)", "Bash(npm test *)", "Bash(npm run lint *)"
+    ],
+    "disableBypassPermissionsMode": "disable"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          { "type": "command", "command": "echo '[Aillio Policy] 顧客の個人情報(PII)・本番の秘密情報をプロンプトやツール入力に入れないこと。詳細は利用規程を参照。'" }
+        ]
+      }
+    ]
+  },
+  "sandbox": {
+    "enabled": true,
+    "failIfUnavailable": false,
+    "allowUnsandboxedCommands": true,
+    "allowManagedDomainsOnly": true,
+    "allowedDomains": [
+      "api.anthropic.com", "registry.npmjs.org", "pypi.org",
+      "files.pythonhosted.org", "github.com", "*.githubusercontent.com"
+    ],
+    "filesystem": {
+      "denyRead": ["~/.aws", "~/.ssh", "~/.config/gcloud"]
+    }
+  },
+  "env": {
+    "CLAUDE_CODE_ENABLE_TELEMETRY": "1",
+    "OTEL_METRICS_EXPORTER": "otlp",
+    "OTEL_LOGS_EXPORTER": "otlp",
+    "OTEL_EXPORTER_OTLP_PROTOCOL": "grpc",
+    "OTEL_EXPORTER_OTLP_ENDPOINT": "REPLACE-WITH-OTEL-COLLECTOR-ENDPOINT",
+    "OTEL_LOG_USER_PROMPTS": "0",
+    "OTEL_LOG_TOOL_DETAILS": "1"
+  }
+}
