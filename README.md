@@ -46,6 +46,7 @@ monorepo 前提・全社セキュリティ基準込み：`typescript-nextjs.md` 
 
 ### スキル（`claude/skills/`）
 - `mcp-security-review` … MCP追加申請の一次審査（実インシデント由来の9項目rubricで採点・**外部API不要**）
+- `issue-decompose` … Epic Issue / PRD を並列実装可能な Task Issue 群に分解（`claude-code-team-template` から移管。`/parallel-dev`・ラベル体系・`.claude/prds/` に依存）
 
 ### エージェント（`claude/agents/`）
 公式プラグイン（code-review / pr-review-toolkit / feature-dev / code-simplifier）と重複しない Aillio 固有のもの：
