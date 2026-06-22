@@ -20,3 +20,21 @@
 
 ## 見直しサイクル
 四半期ごとに `permissions.deny` / `sandbox.allowedDomains` / `allowedMcpServers` を棚卸し。
+
+## 安全な初回展開手順（いきなり全員を避ける）
+
+server-managed は **全Orgメンバーに一律適用**され、テストグループ機能は無い。壊れた設定が全員に波及するのを避けるため、次の順で段階展開する。
+
+1. **file-based で検証** — テスト機の OS保護パスに `managed-settings.json` を置いて検証する。
+   - Linux / WSL2: `/etc/claude-code/managed-settings.json`
+   - macOS: `/Library/Application Support/ClaudeCode/managed-settings.json`
+   - Windows: `C:\Program Files\ClaudeCode\managed-settings.json`
+   - `claude doctor` / `/status` / `/permissions` と、実操作（`docs/testing.md` のテストケース）で挙動を確認する。
+2. **Orgメンバーシップで範囲を絞る** — まず PoCチームだけを Org に招待して server-managed を投入し、実ユーザーで検証する。問題なければ残りを順次招待する（＝「誰をOrgに入れるか」が影響範囲のコントロールになる）。
+3. **`forceRemoteSettingsRefresh` は初回 `false`（または外す）で開始** — `true` のままだと設定・通信の問題時に全員が起動不能になり得る。安定を確認してから `true` に切り替えて締める。
+4. **全員へ拡大**する。
+
+### 注意
+- 設定をコンソールで戻しても、各端末の**キャッシュは次回取得まで残る**（即時 revert ではない）。だからこそ先に file-based 検証が効く。
+- Claude Code **v2.1.169+** は**不正エントリのみ除去して有効分は適用**する（寛容パース）。
+- 変更は**次回起動／1時間ポーリング**で反映され、即時全断ではない。
