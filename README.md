@@ -21,6 +21,28 @@ Aillio 社内向け Claude Code 導入の標準キット & ポリシー設定。
 - `docs/` … オンボーディング（WSL2・sandbox依存）。
 - `install.sh` / `install.ps1` … `claude/` を `~/.claude` へ配置するセットアップ。
 
+## コマンド・プラグイン・規約（`claude/`）
+配布は2系統。**公式プラグインは公式marketplace限定**、**社内固有は自作 `.md`**。
+（`strictPluginOnlyCustomization` は使わないため、自作の commands/skills/agents は自由に追加可能。）
+
+### 公式プラグイン（marketplace は `anthropics/claude-plugins-official` のみ許可）
+managed設定の `strictKnownMarketplaces` + `extraKnownMarketplaces` で**公式のみ許可・自動登録**済み。推奨インストール（`/plugin install <name>`）：
+- `commit-commands` / `code-review` / `pr-review-toolkit` / `feature-dev` / `security-guidance` / `skill-creator`
+- スタック対応LSP：`typescript-lsp` / `pyright-lsp` / `gopls-lsp`
+
+### 自作コマンド（`claude/commands/`）
+- `/handover` … 引き継ぎドキュメント生成
+- `/verify` … 変更を実際に実行して検証（lint/test/build）
+- `/tdd` … テスト駆動実装
+- `/plan` … 実装前の計画立案（コードは書かない）
+- `/web-source-review` … 外部Webソースの安全性審査（SSRF/prompt injection）
+
+### 規約（`claude/rules/`）
+monorepo 前提・全社セキュリティ基準込み：`typescript-nextjs.md` / `python-fastapi.md` / `go.md`
+
+### スキル（`claude/skills/`）
+- `mcp-security-review` … MCP追加申請の一次審査（rubric）
+
 ## クイックスタート
 1. **管理者**：`managed/managed-settings.json` を `managed/OPERATIONS.md` の手順で claude.ai に反映。
 2. **開発者**：`docs/onboarding.md` に従い WSL2 / sandbox 依存をセットアップ → `install.sh`（WSL2外のWindowsは `install.ps1`）。

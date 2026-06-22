@@ -9,6 +9,12 @@
   "allowedMcpServers": [
     { "serverName": "github" }
   ],
+  "strictKnownMarketplaces": [
+    { "source": "github", "repo": "anthropics/claude-plugins-official" }
+  ],
+  "extraKnownMarketplaces": [
+    { "source": "github", "repo": "anthropics/claude-plugins-official" }
+  ],
   "permissions": {
     "deny": [
       "Read(./.env)", "Read(./.env.*)", "Read(**/.env)", "Read(**/.env.*)",
