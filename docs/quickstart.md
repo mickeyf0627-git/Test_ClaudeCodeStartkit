@@ -45,11 +45,11 @@ Claude Code 内で：
 ```
 
 ## 5. 公式プラグイン
-- **自動で入る（操作不要）**：`security-guidance`（書き込み時の自動セキュリティレビュー）／ `commit-commands`
+- **managed で自動（操作不要・無効化不可）**：`security-guidance`（書き込み時の自動セキュリティレビュー）／ `commit-commands`
+- **`install.sh` が自動導入（onboarding時）**：`pr-review-toolkit` ／ `skill-creator`
 - **任意で入れる**：
   ```
   /plugin install code-review@claude-plugins-official
-  /plugin install pr-review-toolkit@claude-plugins-official
   /plugin install feature-dev@claude-plugins-official
   ```
 - **LSP（任意・要バイナリをPATHに）**：`typescript-lsp`(`typescript-language-server`) ／ `pyright-lsp`(`pyright`) ／ `gopls-lsp`(`gopls`)

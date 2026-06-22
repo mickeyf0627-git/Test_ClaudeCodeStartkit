@@ -8,4 +8,16 @@ Copy-Item -Recurse -Force (Join-Path $src "*") $dest
 
 Write-Host "[install] 注意: sandbox はネイティブWindows非対応です。"
 Write-Host "[install] PII作業を含む場合は WSL2 の中で Claude Code を実行し、WSL2側で install.sh を使ってください。"
+# 推奨プラグインを導入（security-guidance / commit-commands は managed で自動有効のため対象外）
+if (Get-Command claude -ErrorAction SilentlyContinue) {
+  foreach ($p in @("pr-review-toolkit","skill-creator")) {
+    try {
+      claude plugin install "$p@claude-plugins-official" --scope user *> $null
+      Write-Host "[install] plugin 導入: $p"
+    } catch {
+      Write-Host "[install] $p は未導入。ログイン後に: /plugin install $p@claude-plugins-official"
+    }
+  }
+}
+
 Write-Host "[install] 完了。'claude' を起動し '/login' で会社Orgにログイン、'/status' を確認してください。"
