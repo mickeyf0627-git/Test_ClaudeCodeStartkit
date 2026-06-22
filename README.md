@@ -1,6 +1,6 @@
-# AILLIO_ClaudeCodeStartkit
+# TEST_ClaudeCodeStartkit
 
-Aillio 社内向け Claude Code 導入の標準キット & ポリシー設定。
+ 社内向け Claude Code 導入の標準キット & ポリシー設定。
 
 ## 前提
 Team プラン / 全員 BYOD（私物端末）/ MDM未導入 / 顧客情報アリ。
