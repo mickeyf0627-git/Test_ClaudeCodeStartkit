@@ -9,7 +9,6 @@
 4. 利用者に再起動してもらい、`/status` の `Setting sources` が **`Enterprise managed settings (remote)`** になることを確認。
 
 ## 反映前に必ず置換するプレースホルダ
-- `forceLoginOrgUUID` … Aillio の Org UUID（Console で確認）
 - `OTEL_EXPORTER_OTLP_ENDPOINT` … 社内 OTel collector のエンドポイント（未定なら env の OTEL 行を一旦外す）
 
 ## 注意

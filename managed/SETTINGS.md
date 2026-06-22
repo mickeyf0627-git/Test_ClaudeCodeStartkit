@@ -9,7 +9,6 @@
 | キー | 値 | かんたんな説明（目的） |
 |---|---|---|
 | `forceLoginMethod` | `"claudeai"` | 会社のClaude（claude.ai）アカウントでだけログインできるようにする |
-| `forceLoginOrgUUID` | `<要置換>` | 会社の組織アカウント以外ではログインさせない（個人アカウントでの業務利用を防ぐ）。**実際のIDに要差し替え** |
 
 ## 基本のロックダウン（土台のルール）
 | キー | 値 | かんたんな説明（目的） |
@@ -64,5 +63,4 @@
 | `OTEL_LOG_TOOL_DETAILS` | `"1"` | どのツールを使ったか（名前だけ）は記録する |
 
 ## 本配信前に必ず差し替えるもの
-- `forceLoginOrgUUID` … Aillio の組織ID（Org UUID）
 - `OTEL_EXPORTER_OTLP_ENDPOINT` … 社内のログ送信先（未定なら telemetry の OTEL 行を外す）

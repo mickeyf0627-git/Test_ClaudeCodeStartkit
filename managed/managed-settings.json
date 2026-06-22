@@ -1,6 +1,5 @@
 {
   "forceLoginMethod": "claudeai",
-  "forceLoginOrgUUID": "REPLACE-WITH-AILLIO-ORG-UUID",
   "requiredMinimumVersion": "2.1.139",
   "allowManagedPermissionRulesOnly": false,
   "disableAutoMode": "disable",

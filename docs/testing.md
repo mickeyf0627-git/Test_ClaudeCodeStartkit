@@ -62,7 +62,6 @@
 | TC-18 | 新規セッションを開始 | SessionStart で利用規程リマインドが表示 | ☐ |
 | TC-19 | telemetry 送信先を確認 | メタデータは届く・**prompt本文は含まれない**（OTEL_LOG_USER_PROMPTS=0） | ☐ |
 | TC-20 | （任意）`requiredMinimumVersion` 未満の版で起動 | 起動拒否 | ☐ |
-| TC-21 | 別Org/個人アカでログイン（`forceLoginOrgUUID` 設定時） | ログイン/起動不可 | ☐ |
 
 ## 合否基準
 - **1〜6 が全PASS** = コア統制（権限・MCP・プラグイン）が効いている。

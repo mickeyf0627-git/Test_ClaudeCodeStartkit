@@ -57,5 +57,4 @@ monorepo 前提・全社セキュリティ基準込み：`typescript-nextjs.md` 
 3. `/status` で `Enterprise managed settings (remote)` を確認。
 
 ## 反映前に必ず置換するプレースホルダ
-- `managed/managed-settings.json` の `forceLoginOrgUUID`（Aillio の Org UUID）
 - `OTEL_EXPORTER_OTLP_ENDPOINT`（社内 OTel collector。未定なら env の OTEL 行を一旦外す）
