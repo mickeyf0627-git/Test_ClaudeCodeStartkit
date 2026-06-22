@@ -25,10 +25,11 @@ Aillio 社内向け Claude Code 導入の標準キット & ポリシー設定。
 配布は2系統。**公式プラグインは公式marketplace限定**、**社内固有は自作 `.md`**。
 （`strictPluginOnlyCustomization` は使わないため、自作の commands/skills/agents は自由に追加可能。）
 
-### 公式プラグイン（marketplace は `anthropics/claude-plugins-official` のみ許可）
-managed設定の `strictKnownMarketplaces` + `extraKnownMarketplaces` で**公式のみ許可・自動登録**済み。推奨インストール（`/plugin install <name>`）：
-- `commit-commands` / `code-review` / `pr-review-toolkit` / `feature-dev` / `security-guidance` / `skill-creator`
-- スタック対応LSP：`typescript-lsp` / `pyright-lsp` / `gopls-lsp`
+### 公式プラグイン（marketplace は公式 `claude-plugins-official` のみ許可）
+公式marketplaceは起動時に自動利用可。managed設定の `strictKnownMarketplaces` で**公式以外を禁止**。
+- **自動導入（全員・managed `enabledPlugins`／無効化不可）**：`security-guidance`（書き込み時の自動セキュリティレビュー）／ `commit-commands`
+- **任意インストール（各自 `/plugin install <name>@claude-plugins-official`）**：`code-review` / `pr-review-toolkit` / `feature-dev` / `skill-creator`
+- **スタック対応LSP（任意・要 language-server バイナリ）**：`typescript-lsp` / `pyright-lsp` / `gopls-lsp`
 
 ### 自作コマンド（`claude/commands/`）
 - `/handover` … 引き継ぎドキュメント生成
