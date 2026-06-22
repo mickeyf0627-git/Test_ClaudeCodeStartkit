@@ -42,7 +42,7 @@ Aillio 社内向け Claude Code 導入の標準キット & ポリシー設定。
 monorepo 前提・全社セキュリティ基準込み：`typescript-nextjs.md` / `python-fastapi.md` / `go.md`
 
 ### スキル（`claude/skills/`）
-- `mcp-security-review` … MCP追加申請の一次審査（rubric）
+- `mcp-security-review` … MCP追加申請の一次審査（[snyk/agent-scan](https://github.com/snyk/agent-scan) でスキャン＋組織のPII/データ分類rubric）
 
 ### エージェント（`claude/agents/`）
 公式プラグイン（code-review / pr-review-toolkit / feature-dev / code-simplifier）と重複しない Aillio 固有のもの：
