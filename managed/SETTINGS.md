@@ -31,7 +31,8 @@
 ## 拡張機能（プラグイン）
 | キー | 値 | かんたんな説明（目的） |
 |---|---|---|
-| `strictKnownMarketplaces` | `[公式ストア]` | 拡張機能は公式ストアからだけ。怪しい配布元を禁止 |
+| `strictKnownMarketplaces` | `claude-plugins-official` ＋ `anthropics/skills` | 拡張機能は **Anthropic公式の2ストアからだけ**。怪しい配布元を禁止 |
+| `extraKnownMarketplaces` | `anthropic-agent-skills` を自動登録 | `anthropics/skills` を各自で追加せず使える（example-skills/webapp-testing 用） |
 | `enabledPlugins` | `security-guidance`, `commit-commands` | 全員に最初から入れておく拡張（自動セキュリティチェック等）。各自では外せない |
 
 ## 起動時のリマインド（hooks）

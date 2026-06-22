@@ -18,6 +18,12 @@ if (Get-Command claude -ErrorAction SilentlyContinue) {
       Write-Host "[install] $p は未導入。ログイン後に: /plugin install $p@claude-plugins-official"
     }
   }
+  try {
+    claude plugin install "example-skills@anthropic-agent-skills" --scope user *> $null
+    Write-Host "[install] plugin 導入: example-skills (webapp-testing 等)"
+  } catch {
+    Write-Host "[install] example-skills 未導入。ログイン後に: /plugin install example-skills@anthropic-agent-skills"
+  }
 }
 
 # 許可済みMCPの登録（トークンは ${ENV} 参照＝コミットしない。ログイン/設定は docs/mcp-setup.md）

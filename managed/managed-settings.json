@@ -11,8 +11,15 @@
     { "serverName": "context7" }
   ],
   "strictKnownMarketplaces": [
-    { "source": "github", "repo": "anthropics/claude-plugins-official" }
+    { "source": "github", "repo": "anthropics/claude-plugins-official" },
+    { "source": "github", "repo": "anthropics/skills" }
   ],
+  "extraKnownMarketplaces": {
+    "anthropic-agent-skills": {
+      "source": { "source": "github", "repo": "anthropics/skills" },
+      "autoUpdate": true
+    }
+  },
   "enabledPlugins": {
     "security-guidance@claude-plugins-official": true,
     "commit-commands@claude-plugins-official": true

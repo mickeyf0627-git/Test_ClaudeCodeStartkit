@@ -30,6 +30,12 @@ if command -v claude >/dev/null 2>&1; then
       echo "[install] $p は未導入。ログイン後に: /plugin install $p@claude-plugins-official"
     fi
   done
+  # webapp-testing 等（example-skills プラグイン・anthropic-agent-skills marketplace）
+  if claude plugin install "example-skills@anthropic-agent-skills" --scope user >/dev/null 2>&1; then
+    echo "[install] plugin 導入: example-skills (webapp-testing 等)"
+  else
+    echo "[install] example-skills 未導入。ログイン後に: /plugin install example-skills@anthropic-agent-skills"
+  fi
 fi
 
 # --- 許可済みMCPの登録（トークンは ${ENV} 参照＝コミットしない。ログイン/設定は docs/mcp-setup.md） ---

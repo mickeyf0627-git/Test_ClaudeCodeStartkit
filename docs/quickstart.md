@@ -46,7 +46,7 @@ Claude Code 内で：
 
 ## 5. 公式プラグイン
 - **managed で自動（操作不要・無効化不可）**：`security-guidance`（書き込み時の自動セキュリティレビュー）／ `commit-commands`
-- **`install.sh` が自動導入（onboarding時）**：`pr-review-toolkit` ／ `skill-creator`
+- **`install.sh` が自動導入（onboarding時）**：`pr-review-toolkit` ／ `skill-creator` ／ `example-skills`（**webapp-testing** 等を含む）
 - **任意で入れる**：
   ```
   /plugin install code-review@claude-plugins-official
