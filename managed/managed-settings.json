@@ -1,5 +1,4 @@
 {
-  "forceLoginMethod": "claudeai",
   "requiredMinimumVersion": "2.1.139",
   "allowManagedPermissionRulesOnly": false,
   "disableAutoMode": "disable",
