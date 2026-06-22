@@ -22,11 +22,15 @@
 | `allow`（自動許可） | `git status`・`git diff`・`npm test`・`npm run lint` | 安全でよく使う操作は確認なしで通す（作業の邪魔をしない） |
 | WebFetch | （ルール無し＝許可） | Webページの取得は許可（普通の調べ物用） |
 
+※本当は、WEBFETCHにセキュリティレビューを通すようにしたい。
+
 ## MCP（外部サービス連携）
 | キー | 値 | かんたんな説明（目的） |
 |---|---|---|
 | `allowManagedMcpServersOnly` | `true` | 会社が承認した連携だけ使える（勝手な追加を防ぐ） |
 | `allowedMcpServers` | `github, supabase, playwright, context7` | 承認済み4つを許可。**Supabaseは非prod・read-only限定**。登録手順とログインは [docs/mcp-setup.md](../docs/mcp-setup.md)。追加は申請→`mcp-security-review`→Owner登録 |
+
+※本来は、すべてブロックするところだが、必要と感じた部分のみは適宜入れていく想定。
 
 ## 拡張機能（プラグイン）
 | キー | 値 | かんたんな説明（目的） |
