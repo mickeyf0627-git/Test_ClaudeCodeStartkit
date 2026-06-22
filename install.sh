@@ -32,4 +32,13 @@ if command -v claude >/dev/null 2>&1; then
   done
 fi
 
+# --- 許可済みMCPの登録（トークンは ${ENV} 参照＝コミットしない。ログイン/設定は docs/mcp-setup.md） ---
+if command -v claude >/dev/null 2>&1; then
+  claude mcp add --scope user playwright -- npx @playwright/mcp@latest >/dev/null 2>&1 && echo "[install] MCP: playwright" || true
+  claude mcp add-json --scope user context7 '{"type":"stdio","command":"npx","args":["-y","@upstash/context7-mcp","--api-key","${CONTEXT7_API_KEY:-}"]}' >/dev/null 2>&1 && echo "[install] MCP: context7 (要 CONTEXT7_API_KEY)" || true
+  claude mcp add --scope user --transport http github https://api.githubcopilot.com/mcp/ >/dev/null 2>&1 && echo "[install] MCP: github (/mcp でOAuth)" || true
+  claude mcp add-json --scope user supabase '{"type":"stdio","command":"npx","args":["-y","@supabase/mcp-server-supabase@latest","--read-only","--project-ref=${SUPABASE_PROJECT_REF:-}"],"env":{"SUPABASE_ACCESS_TOKEN":"${SUPABASE_ACCESS_TOKEN:-}"}}' >/dev/null 2>&1 && echo "[install] MCP: supabase (非prod/read-only・要 SUPABASE_ACCESS_TOKEN)" || true
+  echo "[install] MCPのログイン/トークンは docs/mcp-setup.md を参照"
+fi
+
 echo "[install] 完了。'claude' を起動し '/login' で会社Orgにログイン、'/status' を確認してください。"

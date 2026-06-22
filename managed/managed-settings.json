@@ -5,7 +5,10 @@
   "forceRemoteSettingsRefresh": true,
   "allowManagedMcpServersOnly": true,
   "allowedMcpServers": [
-    { "serverName": "github" }
+    { "serverName": "github" },
+    { "serverName": "supabase" },
+    { "serverName": "playwright" },
+    { "serverName": "context7" }
   ],
   "strictKnownMarketplaces": [
     { "source": "github", "repo": "anthropics/claude-plugins-official" }

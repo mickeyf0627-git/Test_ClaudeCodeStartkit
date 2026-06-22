@@ -59,6 +59,7 @@ Claude Code 内で：
 - **エージェント**：`security-reviewer`（PII/脆弱性レビュー）・`build-error-resolver`（ビルド修復）
 - **スキル**：`mcp-security-review`（MCP申請の一次審査）
 - **規約**：`~/.claude/rules`（TypeScript/Next・Python/FastAPI・Go）
+- **MCP**：`github` / `supabase`(非prod・read-only) / `playwright` / `context7`（`install.sh` が登録。ログイン/トークンは [mcp-setup.md](mcp-setup.md)）
 
 ## 7. 守ること（利用規程の要点）
 - 顧客PII・本番の秘密情報を**プロンプト／ツール入力に入れない**（開発は合成・マスキングデータで）。

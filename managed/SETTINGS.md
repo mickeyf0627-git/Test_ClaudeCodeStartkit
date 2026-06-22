@@ -26,7 +26,7 @@
 | キー | 値 | かんたんな説明（目的） |
 |---|---|---|
 | `allowManagedMcpServersOnly` | `true` | 会社が承認した連携だけ使える（勝手な追加を防ぐ） |
-| `allowedMcpServers` | `[github]` | いまは GitHub 連携だけ許可（他は申請→審査を通れば追加） |
+| `allowedMcpServers` | `github, supabase, playwright, context7` | 承認済み4つを許可。**Supabaseは非prod・read-only限定**。登録手順とログインは [docs/mcp-setup.md](../docs/mcp-setup.md)。追加は申請→`mcp-security-review`→Owner登録 |
 
 ## 拡張機能（プラグイン）
 | キー | 値 | かんたんな説明（目的） |
