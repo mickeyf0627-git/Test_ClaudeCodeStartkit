@@ -1,7 +1,9 @@
 # AILLIO_ClaudeCodeStartkit
 
 Aillio 社内向け Claude Code 導入の標準キット & ポリシー設定。
-前提：Team プラン / 全員 BYOD（私物端末）/ MDM未導入 / 顧客PIIあり /「Path B（BYOD維持）」。
+
+## 前提
+Team プラン / 全員 BYOD（私物端末）/ MDM未導入 / 顧客情報アリ。
 設計の根拠は別途のセキュリティ設計書を参照。
 
 ## 構成は2層に分かれる（混同しないこと）
