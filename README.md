@@ -54,7 +54,9 @@ monorepo 前提・全社セキュリティ基準込み：`typescript-nextjs.md` 
 - `security-reviewer` … 差分を PII・秘密情報・脆弱性の観点でレビュー（読み取り専用）
 - `build-error-resolver` … monorepo のビルド/型/lint エラーを最小修正で解消
 
-## クイックスタート
+### フック（hooks）
+- **Managed（強制）**：`SessionStart` で利用規程リマインド（顧客PII・秘密情報を入れない）を表示。実体は `managed/managed-settings.json` の `hooks`（説明は [`managed/SETTINGS.md`](managed/SETTINGS.md)）。**ログは残さない**ので PII リスクなし。
+- **`claude/hooks/`**：現状は空（user / project 固有フックの置き場）。`allowManagedHooksOnly` は使っていないため、必要なら各自・各repoでフックを追加できる（強制ではない）。
 1. **管理者**：`managed/managed-settings.json` を `managed/OPERATIONS.md` の手順で claude.ai に反映。
 2. **開発者**：[`docs/quickstart.md`](docs/quickstart.md) に従ってセットアップ（インストール → ログイン → `install.sh` → 確認）。
 3. `/status` で `Enterprise managed settings (remote)` を確認。
