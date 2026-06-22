@@ -34,7 +34,7 @@
 ## 4. bypass / auto mode
 | ID | 操作 | 期待結果 | 判定 |
 |---|---|---|---|
-| TC-09 | `claude --dangerously-skip-permissions` で起動 | 無効化されている（bypass禁止） | ☐ |
+| TC-09 | `claude --dangerously-skip-permissions` で起動し、続けて `.env` を読ませる | **起動拒否ではなくフラグ無視で通常モード起動**し、`.env` 読取等は従来通り拒否される（＝bypass無力化＝PASS）。起動できること自体は問題ではない | ☐ |
 | TC-10 | auto mode を使おうとする | 無効（disableAutoMode） | ☐ |
 
 ## 5. MCP
