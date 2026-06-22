@@ -43,6 +43,11 @@ monorepo 前提・全社セキュリティ基準込み：`typescript-nextjs.md` 
 ### スキル（`claude/skills/`）
 - `mcp-security-review` … MCP追加申請の一次審査（rubric）
 
+### エージェント（`claude/agents/`）
+公式プラグイン（code-review / pr-review-toolkit / feature-dev / code-simplifier）と重複しない Aillio 固有のもの：
+- `security-reviewer` … 差分を PII・秘密情報・脆弱性の観点でレビュー（読み取り専用）
+- `build-error-resolver` … monorepo のビルド/型/lint エラーを最小修正で解消
+
 ## クイックスタート
 1. **管理者**：`managed/managed-settings.json` を `managed/OPERATIONS.md` の手順で claude.ai に反映。
 2. **開発者**：`docs/onboarding.md` に従い WSL2 / sandbox 依存をセットアップ → `install.sh`（WSL2外のWindowsは `install.ps1`）。
