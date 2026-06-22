@@ -50,7 +50,7 @@ monorepo 前提・全社セキュリティ基準込み：`typescript-nextjs.md` 
 - `parallel-dev` … 承認済み Task Issue を Git worktree で並列実装→Draft PR（issue-decompose と対。E2EはWeb `webapp-testing` で実行）
 
 ### エージェント（`claude/agents/`）
-公式プラグイン（code-review / pr-review-toolkit / feature-dev / code-simplifier）と重複しない Aillio 固有のもの：
+公式プラグイン（code-review / pr-review-toolkit / feature-dev / code-simplifier）と重複しない 社内固有のもの：
 - `security-reviewer` … 差分を PII・秘密情報・脆弱性の観点でレビュー（読み取り専用）
 - `build-error-resolver` … monorepo のビルド/型/lint エラーを最小修正で解消
 

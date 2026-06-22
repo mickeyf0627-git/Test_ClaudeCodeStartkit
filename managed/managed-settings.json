@@ -48,7 +48,7 @@
     "SessionStart": [
       {
         "hooks": [
-          { "type": "command", "command": "echo '[Aillio Policy] 顧客の個人情報(PII)・本番の秘密情報をプロンプトやツール入力に入れないこと。詳細は利用規程を参照。'" }
+          { "type": "command", "command": "echo '[社内ポリシー] 顧客の個人情報(PII)・本番の秘密情報をプロンプトやツール入力に入れないこと。詳細は利用規程を参照。'" }
         ]
       }
     ]
