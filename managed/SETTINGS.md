@@ -1,69 +1,68 @@
 # Managed settings の中身（現在の設定一覧）
 
-`managed-settings.json` に入れている各設定の**意味と狙い**。JSONの人間向け対応表です。
+`managed-settings.json` に入れている各設定の**意味と狙い**を、技術に詳しくない人でも分かるように説明したものです。
 **設定を変えたら、このファイルも更新すること。** 反映手順は [OPERATIONS.md](OPERATIONS.md)、効力確認は [../docs/testing.md](../docs/testing.md)。
 
-> 強制力は managed 層のみ（下位スコープからは上書き不可）。なぜこの値かの根拠はセキュリティ設計書を参照。
+> これらは「会社が全員に強制するルール」。各自のPC設定では上書きできません。
 
-## 認証・アカウント
-| キー | 値 | 目的 |
+## 認証・アカウント（誰がどう使えるか）
+| キー | 値 | かんたんな説明（目的） |
 |---|---|---|
-| `forceLoginMethod` | `"claudeai"` | ログイン方法を claude.ai に固定 |
-| `forceLoginOrgUUID` | `<要置換>` | 会社Org以外でのログインをブロック（**実UUIDに要置換**） |
+| `forceLoginMethod` | `"claudeai"` | 会社のClaude（claude.ai）アカウントでだけログインできるようにする |
+| `forceLoginOrgUUID` | `<要置換>` | 会社の組織アカウント以外ではログインさせない（個人アカウントでの業務利用を防ぐ）。**実際のIDに要差し替え** |
 
-## バージョン・ロックダウン
-| キー | 値 | 目的 |
+## 基本のロックダウン（土台のルール）
+| キー | 値 | かんたんな説明（目的） |
 |---|---|---|
-| `requiredMinimumVersion` | `"2.1.139"` | 最低CCバージョン（`forceRemoteSettingsRefresh` 利用のため必要） |
-| `allowManagedPermissionRulesOnly` | `false` | deny は床として常に有効。project が allow を追加可（運用負荷を下げる） |
-| `disableAutoMode` | `"disable"` | auto mode を無効（分類器ベースの自動承認を使わず決定論的permissionを優先） |
-| `forceRemoteSettingsRefresh` | `true` | 取得失敗時は起動拒否（フェイルクローズ）。※**初回展開は false 推奨**（OPERATIONS参照） |
+| `requiredMinimumVersion` | `"2.1.139"` | 古いバージョンのClaude Codeを使わせない（ルールが正しく効く新しさを担保） |
+| `allowManagedPermissionRulesOnly` | `false` | 「禁止」は全社で固定しつつ、「許可」は各チームが自分で足せる（管理をラクにするため） |
+| `disableAutoMode` | `"disable"` | AIが自動でOKを出して進む“おまかせモード”を使わせない（人が確認する形を保つ） |
+| `forceRemoteSettingsRefresh` | `true` | 会社のルール設定を受け取れないと起動させない（ルール無しで使われるのを防ぐ）。※**初回展開は false 推奨**（[OPERATIONS](OPERATIONS.md)参照） |
 
-## permissions（権限の床）
-| 区分 | 中身 | 目的 |
+## permissions（やってよい操作・ダメな操作）
+| 区分 | 中身 | かんたんな説明（目的） |
 |---|---|---|
-| `disableBypassPermissionsMode` | `"disable"` | `--dangerously-skip-permissions` を無力化（起動はするが bypass しない） |
-| `deny`（拒否） | 機密ファイルの Read/Write/Edit（`.env*` / `secrets` / `credentials` / `*.pem` / `*.key` / `id_rsa` / `~/.ssh` / `~/.aws` / `gcloud`）、破壊系（`sudo` / `rm -rf /`,`~` / `mkfs` / `dd`） | 機密保護・破滅的操作の禁止 |
-| `ask`（確認） | 外部送信（`curl` / `wget`）、破壊的だが正当（`rm -rf`一般 / `git push --force` / `git reset --hard` / `git clean -fd`） | 人の目を通す |
-| `allow`（自動許可・最小） | `git status` / `git diff` / `npm test` / `npm run lint` | 安全な既定。project が更に追加可 |
-| WebFetch | （ルール無し＝許可） | 正規のWeb取得経路 |
+| `disableBypassPermissionsMode` | `"disable"` | 「すべての確認をスキップする危険モード」を使えないようにする |
+| `deny`（禁止） | 機密ファイル（`.env*`・`secrets`・パスワードや鍵・`~/.ssh`・`~/.aws` 等）の読み書き／PCを壊す系（`sudo`・`rm -rf /`・ディスク初期化 等） | パスワードや顧客情報を触らせない・PCを壊す操作を禁止 |
+| `ask`（確認） | 外部送信（`curl`・`wget`）／消す系（`rm -rf`・`git push --force`・`git reset --hard` 等） | 外にデータを送る・取り消せない操作は、実行前に必ず人へ確認 |
+| `allow`（自動許可） | `git status`・`git diff`・`npm test`・`npm run lint` | 安全でよく使う操作は確認なしで通す（作業の邪魔をしない） |
+| WebFetch | （ルール無し＝許可） | Webページの取得は許可（普通の調べ物用） |
 
-## MCP
-| キー | 値 | 目的 |
+## MCP（外部サービス連携）
+| キー | 値 | かんたんな説明（目的） |
 |---|---|---|
-| `allowManagedMcpServersOnly` | `true` | 承認済みMCPのみ接続可（ユーザー追加をブロック） |
-| `allowedMcpServers` | `[{ serverName: github }]` | 当面 GitHub のみ許可（追加は 申請→`mcp-security-review`→人間承認→Owner登録） |
+| `allowManagedMcpServersOnly` | `true` | 会社が承認した連携だけ使える（勝手な追加を防ぐ） |
+| `allowedMcpServers` | `[github]` | いまは GitHub 連携だけ許可（他は申請→審査を通れば追加） |
 
-## plugin / marketplace
-| キー | 値 | 目的 |
+## 拡張機能（プラグイン）
+| キー | 値 | かんたんな説明（目的） |
 |---|---|---|
-| `strictKnownMarketplaces` | `[anthropics/claude-plugins-official]` | 公式 marketplace 以外を禁止 |
-| `enabledPlugins` | `security-guidance`, `commit-commands` | 全員に自動有効化（無効化不可） |
+| `strictKnownMarketplaces` | `[公式ストア]` | 拡張機能は公式ストアからだけ。怪しい配布元を禁止 |
+| `enabledPlugins` | `security-guidance`, `commit-commands` | 全員に最初から入れておく拡張（自動セキュリティチェック等）。各自では外せない |
 
-## hooks
-| イベント | 内容 | 目的 |
+## 起動時のリマインド（hooks）
+| イベント | 内容 | かんたんな説明（目的） |
 |---|---|---|
-| `SessionStart` | 利用規程リマインド（PII・秘密情報を入れない）を表示 | コンプラ補強。**ログは残さない**（PIIリスク無し） |
+| `SessionStart` | 利用規程リマインドを表示 | 起動のたびに「個人情報・秘密情報を入力しないこと」を画面に出す（記録は残さない） |
 
-## sandbox（WSL2 / macOS / Linux のみ。素のWindowsは非対応）
-| キー | 値 | 目的 |
+## サンドボックス（実行を“隔離箱”に閉じ込める。WSL2/Mac/Linuxのみ）
+| キー | 値 | かんたんな説明（目的） |
 |---|---|---|
-| `enabled` | `true` | OSレベルの FS / ネットワーク隔離 |
-| `failIfUnavailable` | `false` | sandbox 不可環境は警告のみ（定着後 `true` 検討） |
-| `allowUnsandboxedCommands` | `true` | 逃がし弁あり（慣れたら `false` で厳格化） |
-| `allowManagedDomainsOnly` | `true` | 許可ドメイン以外を遮断（egress制御の本体） |
-| `allowedDomains` | Anthropic API / npm / pypi / github 等 | 通信許可先 |
-| `filesystem.denyRead` | `~/.aws` / `~/.ssh` / `gcloud` | 認証情報ディレクトリの読取拒否 |
+| `enabled` | `true` | AIが動かすコマンドを隔離した箱の中で実行し、PC本体やネットを勝手に触らせない |
+| `failIfUnavailable` | `false` | 箱が使えない環境では、いったん警告だけ出して動かす（後で厳しくする） |
+| `allowUnsandboxedCommands` | `true` | 箱内で動かせない操作は、確認のうえ箱の外で動かす逃げ道を残す |
+| `allowManagedDomainsOnly` | `true` | 許可した通信先以外には接続させない（情報の外部持ち出しを防ぐ） |
+| `allowedDomains` | Anthropic・npm・pypi・github 等 | 通信してよい相手先 |
+| `filesystem.denyRead` | `~/.aws`・`~/.ssh`・`gcloud` | クラウドの認証情報フォルダを読ませない |
 
-## telemetry（env）
-| キー | 値 | 目的 |
+## 利用ログ（telemetry）
+| キー | 値 | かんたんな説明（目的） |
 |---|---|---|
-| `CLAUDE_CODE_ENABLE_TELEMETRY` | `"1"` | OTel 有効化 |
-| `OTEL_METRICS_EXPORTER` / `OTEL_LOGS_EXPORTER` | `"otlp"` | エクスポータ |
-| `OTEL_EXPORTER_OTLP_ENDPOINT` | `<要置換>` | 送信先（**社内collectorに要置換／未定なら外す**） |
-| `OTEL_LOG_USER_PROMPTS` | `"0"` | **prompt本文を記録しない（PII二次流出防止）** |
-| `OTEL_LOG_TOOL_DETAILS` | `"1"` | MCP / ツール名のメタデータを記録 |
+| `CLAUDE_CODE_ENABLE_TELEMETRY` | `"1"` | 利用状況の記録（監査用）を有効にする |
+| `OTEL_..._EXPORTER` / `ENDPOINT` | otlp / `<要置換>` | 記録の送り先（**社内の送信先に要差し替え**／未定なら外す） |
+| `OTEL_LOG_USER_PROMPTS` | `"0"` | **入力した文章そのものは記録しない**（顧客情報がログに残るのを防ぐ）← 重要 |
+| `OTEL_LOG_TOOL_DETAILS` | `"1"` | どのツールを使ったか（名前だけ）は記録する |
 
-## 要置換のプレースホルダ（本配信前に必須）
-- `forceLoginOrgUUID` … Aillio の Org UUID
-- `OTEL_EXPORTER_OTLP_ENDPOINT` … 社内 OTel collector（未定なら env の OTEL 行を外す）
+## 本配信前に必ず差し替えるもの
+- `forceLoginOrgUUID` … Aillio の組織ID（Org UUID）
+- `OTEL_EXPORTER_OTLP_ENDPOINT` … 社内のログ送信先（未定なら telemetry の OTEL 行を外す）
